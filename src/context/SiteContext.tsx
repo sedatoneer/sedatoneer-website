@@ -11,7 +11,7 @@ const CONTENT = {
     intro_titles: [
       "Bilgisayar Mühendisi",
       "Pratech Kurucu Ortağı",
-      "Backend & Otomasyon",
+      "Backend & Otomasyon Mimarı",
       "Tersine Mühendis"
     ],
     sidebar: {
