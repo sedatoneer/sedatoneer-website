@@ -144,7 +144,7 @@ const CONTENT = {
     intro_titles: [
       "Computer Engineer",
       "Co-Founder @ Pratech",
-      "Backend & Automation",
+      "Backend & Automation Architect",
       "Reverse Engineer"
     ],
     sidebar: {
