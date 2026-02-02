@@ -30,18 +30,18 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5 }}
         >
-            <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white mb-6 tracking-tighter">
-                {t.hero.title_line1} <br /> 
-                <span className="text-blue-500 block md:inline mt-2 md:mt-0 min-h-[1.2em]">
+            <h2 className="text-3xl md:text-5xl font-bold leading-tight text-white mb-6 tracking-tighter flex flex-wrap gap-x-2 md:gap-x-3">
+                <span>{t.hero.title_line1}</span>
+                <span className="text-blue-500 min-h-[1.2em]">
                     <Typewriter
                         key={lang} 
                         words={t.intro_titles}
                         loop={0}
                         cursor
-                        cursorStyle='_'
-                        typeSpeed={50}
-                        deleteSpeed={30}
-                        delaySpeed={1500}
+                        cursorStyle='|'
+                        typeSpeed={60}
+                        deleteSpeed={40}
+                        delaySpeed={2000}
                     />
                 </span>
             </h2>

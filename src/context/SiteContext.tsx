@@ -9,10 +9,11 @@ const CONTENT = {
       description: "Görüntü İşleme, Otomasyon ve Backend teknolojileri üzerine odaklanan Bilgisayar Mühendisliği öğrencisi ve Pratech kurucu ortağı."
     },
     intro_titles: [
-      "Bilgisayar Mühendisi",
-      "Pratech Kurucu Ortağı",
-      "Backend & Otomasyon Mimarı",
-      "Tersine Mühendis"
+      "Sedat Öner.",
+      "Bilgisayar Mühendisiyim.",
+      "Pratech Kurucu Ortağıyım.",
+      "Backend & Otomasyon Mimarıyım.",
+      "Freelancerım."
     ],
     sidebar: {
       role: "Mühendis ve Kurucu Ortak",
@@ -20,7 +21,7 @@ const CONTENT = {
     },
     hero: {
       badge: "Backend ve Otomasyon Geliştirici",
-      title_line1: "Merhaba, Ben Sedat.",
+      title_line1: "Merhaba, Ben",
       description: "Bilgisayar Mühendisliği öğrencisiyim, aynı zamanda Pratech girişiminin kurucu ortağıyım. Genellikle arka planda çalışan sistemler, otomasyonlar ve tersine mühendislik üzerine kafa yoruyorum. Ayrıca freelance olarak veri madenciliği ve otomasyon çözümleri sunuyorum.",
       cta_primary: "Neler Yaptım?",
       cta_secondary: "GitHub Profilim",
@@ -142,10 +143,11 @@ const CONTENT = {
       description: "Computer Engineering student and Pratech co-founder specializing in Computer Vision, Automation, and Backend technologies."
     },
     intro_titles: [
-      "Computer Engineer",
-      "Co-Founder @ Pratech",
-      "Backend & Automation Architect",
-      "Reverse Engineer"
+      "Sedat Oner.",
+      "a Computer Engineer.",
+      "a Backend Architect.",
+      "the Co-Founder of Pratech.",
+      "a Freelancer"
     ],
     sidebar: {
       role: "Engineer and Co-Founder",
@@ -153,8 +155,8 @@ const CONTENT = {
     },
     hero: {
       badge: "Backend and Automation Developer",
-      title_line1: "Hello, I'm Sedat.",
-      description: "Computer Engineering student and co-founder of Pratech. I focus on backend, automation, and reverse engineering. Also a freelance data miner.",
+      title_line1: "Hello, I'm",
+      description: "I am a Computer Engineering student and also a co-founder of the Pratech startup. I usually focus on systems that run in the background, automation, and reverse engineering. I also offer data mining and automation solutions as a freelancer.",
       cta_primary: "My Work",
       cta_secondary: "GitHub Profile",
     },
@@ -282,14 +284,13 @@ interface SiteContextType {
   setIsIntro: (status: boolean) => void;
 }
 
-const SiteContext = createContext<SiteContextType | undefined>(undefined);
+const SiteContext = React.createContext<SiteContextType | undefined>(undefined);
 
 export function SiteProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<Language>("tr");
-  const [isIntro, setIsIntro] = useState(true);
+  const [lang, setLang] = React.useState<Language>("tr");
+  const [isIntro, setIsIntro] = React.useState(true);
 
-  // Sayfa yüklendiğinde Intro timer'ı
-  useEffect(() => {
+  React.useEffect(() => {
     const timer = setTimeout(() => setIsIntro(false), 2000);
     return () => clearTimeout(timer);
   }, []);
@@ -302,7 +303,7 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useSite() {
-  const context = useContext(SiteContext);
+  const context = React.useContext(SiteContext);
   if (!context) throw new Error("useSite must be used within a SiteProvider");
   return context;
-} 
+}
