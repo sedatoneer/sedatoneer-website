@@ -1,94 +1,179 @@
 "use client";
 
 import { useSite } from "@/context/SiteContext";
-import { ArrowRight, Github, Linkedin, Instagram } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Typewriter } from 'react-simple-typewriter';
+
+const STACK = ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL", "OpenCV", "Selenium", "C++"];
 
 export default function Home() {
   const { t, lang } = useSite();
 
   return (
-    <div className="max-w-5xl mx-auto pt-10 pb-20 px-4 md:px-0">
-        
-        {/* Badge - Rozet */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+    <div className="min-h-[84vh] flex flex-col justify-end relative overflow-hidden">
+      {/* Ghost section number */}
+      <div
+        aria-hidden
+        className="absolute right-0 top-[-2%] leading-none select-none pointer-events-none"
+        style={{
+          fontFamily: "var(--font-cormorant)",
+          fontWeight: 400,
+          fontSize: "clamp(180px, 32vw, 420px)",
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(255,255,255,0.035)",
+          lineHeight: 1,
+        }}
+      >
+        01
+      </div>
+
+      <div className="relative z-10 pb-12">
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "9px",
+            letterSpacing: "0.3em",
+            color: "var(--fg-mid)",
+            textTransform: "uppercase",
+            marginBottom: "40px",
+          }}
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] md:text-xs font-mono border border-blue-500/20 mb-6 uppercase tracking-wider">
-               <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
-               {t.hero.badge}
+          Portfolio &mdash; 2025
+        </motion.div>
+
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.07 }}
+          style={{
+            fontFamily: "var(--font-cormorant)",
+            fontWeight: 400,
+            color: "var(--fg)",
+            fontSize: "clamp(68px, 13vw, 156px)",
+            lineHeight: 0.9,
+            letterSpacing: "0.02em",
+          }}
+        >
+          SEDAT
+          <br />
+          ÖNER
+        </motion.h1>
+
+        {/* Accent bar + role */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.27 }}
+          style={{ display: "flex", alignItems: "center", gap: "20px", marginTop: "32px" }}
+        >
+          <div style={{ width: "28px", height: "1px", backgroundColor: "var(--accent)", flexShrink: 0 }} />
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "9.5px",
+              letterSpacing: "0.26em",
+              color: "var(--fg-mid)",
+              textTransform: "uppercase",
+            }}
+          >
+            {lang === "tr" ? t.hero.badge : "Backend & Automation Engineer"}
           </span>
         </motion.div>
-        
-        {/* Ana Başlık ve Typewriter */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          style={{
+            fontFamily: "var(--font-dm)",
+            fontSize: "14.5px",
+            color: "var(--fg-mid)",
+            lineHeight: 1.78,
+            maxWidth: "440px",
+            fontWeight: 400,
+            marginTop: "28px",
+          }}
         >
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight text-white mb-6 tracking-tighter flex flex-wrap gap-x-2 md:gap-x-3">
-                <span>{t.hero.title_line1}</span>
-                <span className="text-blue-500 min-h-[1.2em]">
-                    <Typewriter
-                        key={lang} 
-                        words={t.intro_titles}
-                        loop={0}
-                        cursor
-                        cursorStyle='|'
-                        typeSpeed={60}
-                        deleteSpeed={40}
-                        delaySpeed={2000}
-                    />
-                </span>
-            </h2>
-        </motion.div>
-        
-        {/* Açıklama Metni */}
-        <motion.p 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed mb-10"
-        >
-            {t.hero.description}
+          {t.hero.description}
         </motion.p>
 
-        {/* Butonlar ve Sosyal Medya */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4"
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.55 }}
+          style={{ display: "flex", alignItems: "center", gap: "28px", marginTop: "36px" }}
         >
           <Link href="/projects">
-            <button className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 transition-all active:scale-95 cursor-pointer shadow-xl shadow-white/5">
-              {t.hero.cta_primary} <ArrowRight size={18} />
-            </button>
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9.5px",
+                letterSpacing: "0.24em",
+                color: "var(--fg)",
+                textTransform: "uppercase",
+                borderBottom: "1px solid var(--fg)",
+                paddingBottom: "2px",
+                cursor: "pointer",
+                transition: "opacity 0.15s",
+              }}
+            >
+              {lang === "tr" ? "Çalışmalar" : "View Work"}
+            </span>
           </Link>
-          
-          <div className="flex items-center gap-5 px-2">
-            <SocialIcon icon={<Github size={22} />} href="https://github.com/sedatoneer" />
-            <SocialIcon icon={<Linkedin size={22} />} href="https://linkedin.com/in/sedatoneer" />
-            <SocialIcon icon={<Instagram size={22} />} href="https://instagram.com/sedatoneer" />
-          </div>
+          <Link href="/contact">
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9.5px",
+                letterSpacing: "0.24em",
+                color: "var(--fg-mid)",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                transition: "color 0.15s",
+              }}
+            >
+              {lang === "tr" ? "İletişim" : "Contact"}
+            </span>
+          </Link>
         </motion.div>
+
+        {/* Stack strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          style={{
+            marginTop: "48px",
+            paddingTop: "24px",
+            borderTop: "1px solid var(--border)",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "20px 28px",
+          }}
+        >
+          {STACK.map((s) => (
+            <span
+              key={s}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "8px",
+                color: "var(--fg-dim)",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+              }}
+            >
+              {s}
+            </span>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
-}
-
-function SocialIcon({ icon, href }: { icon: any, href: string }) {
-  return (
-    <a 
-      href={href} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="text-gray-500 hover:text-white transition-all p-2 hover:bg-white/10 rounded-lg transform hover:-translate-y-1 duration-200"
-    >
-      {icon}
-    </a>
-  )
 }

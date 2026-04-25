@@ -1,105 +1,308 @@
 "use client";
 
 import { useSite } from "@/context/SiteContext";
-import { ExternalLink, Cpu, Code2, Terminal, Layers, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
-export default function ProjectsPage() {
-  const { t } = useSite();
-
-  const projectsList = t.projects_page.items;
-  const pageTitle = t.projects_page.title;
-  const pageDesc = t.projects_page.desc;
+function ProjectCard({ project, lang, index }: { project: any; lang: string; index: number }) {
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="max-w-6xl mx-auto pt-10 pb-20 px-4 md:px-0">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.05 + index * 0.055, duration: 0.45 }}
+      className="group flex flex-col"
+      style={{ backgroundColor: "var(--bg)" }}
+    >
+      <div
+        className="flex flex-col h-full relative"
+        style={{
+          backgroundColor: hovered ? "var(--surface-hi)" : "var(--surface)",
+          transition: "background-color 0.18s ease",
+          borderLeft: hovered ? "2px solid var(--accent)" : "2px solid transparent",
+          padding: hovered ? "30px 30px 30px 28px" : "30px",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-white">{pageTitle}</h2>
-        <p className="text-gray-400 mb-8 max-w-2xl text-sm md:text-base">{pageDesc}</p>
-      </motion.div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projectsList.map((project: any, index: number) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="group relative p-6 rounded-3xl bg-[#0c0c0e] border border-white/5 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10 flex flex-col h-full"
-          >
-            <div className="flex justify-between items-start mb-4">
-               <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                  {getIconByCategory(project.stat)}
-               </div>
-               <span className="text-[10px] md:text-xs font-mono text-gray-500 border border-white/10 px-2 py-1 rounded">
-                 {project.stat}
-               </span>
+        {/* Card top row */}
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {/* Category label */}
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                color: "var(--fg-mid)",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                marginBottom: "8px",
+              }}
+            >
+              {project.category}
             </div>
 
-            <h4 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+            {/* Title */}
+            <h2
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontWeight: 400,
+                color: "var(--fg)",
+                fontSize: "clamp(22px, 2.8vw, 29px)",
+                lineHeight: 1.1,
+                letterSpacing: "0.01em",
+              }}
+            >
               {project.title}
-            </h4>
-            
-            <p className="text-sm text-gray-400 mb-6 grow leading-relaxed">
-              {project.description}
-            </p>
+            </h2>
+          </div>
 
-            <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((tech: string) => (
-                    <span key={tech} className="text-[10px] uppercase font-bold tracking-wider text-gray-500 bg-white/5 px-2 py-1 rounded border border-white/5">
-                      {tech}
-                    </span>
-                ))}
-            </div>
+          {/* Stat badge — gold border + gold text for legibility */}
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "7px",
+              color: "var(--accent)",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              flexShrink: 0,
+              border: "1px solid rgba(200, 165, 122, 0.45)",
+              padding: "4px 8px",
+              lineHeight: 1,
+              whiteSpace: "nowrap",
+              marginTop: "2px",
+            }}
+          >
+            {project.stat}
+          </span>
+        </div>
 
-            <div className="mt-auto flex flex-wrap gap-4">
-              {project.link && (
-                <a 
-                  href={project.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-blue-400 transition-colors group/link"
-                >
-                    {t.projects_page.view_code}
-                    <ExternalLink size={12} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-                </a>
-              )}
-              
-              {project.demoLink && (
-                <a 
-                  href={project.demoLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-green-400 hover:text-green-300 transition-colors group/demo"
-                >
-                    {t.projects_page.live_demo}
-                    <PlayCircle size={12} className="group-hover/demo:scale-110 transition-transform" />
-                </a>
-              )}
+        {/* Description */}
+        <p
+          className="flex-1 mb-6"
+          style={{
+            fontFamily: "var(--font-dm)",
+            fontSize: "13.5px",
+            color: "var(--fg-mid)",
+            lineHeight: 1.72,
+            fontWeight: 400,
+          }}
+        >
+          {project.description}
+        </p>
 
-              {!project.link && !project.demoLink && (
-                <span className="text-xs font-mono text-gray-600 cursor-not-allowed">
-                  {t.projects_page.private}
-                </span>
-              )}
-            </div>
+        {/* Footer */}
+        <div
+          className="flex items-end justify-between flex-wrap gap-3 pt-4"
+          style={{ borderTop: "1px solid var(--border)" }}
+        >
+          {/* Tech tags */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 16px" }}>
+            {project.tech.map((tech: string) => (
+              <span
+                key={tech}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "8px",
+                  color: "var(--fg-mid)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                }}
+              >
+                <span style={{ color: "var(--accent)", opacity: 0.6, fontSize: "6px" }}>▪</span>
+                {tech}
+              </span>
+            ))}
+          </div>
 
-          </motion.div>
+          {/* Links */}
+          <div style={{ display: "flex", gap: "20px", flexShrink: 0 }}>
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "8px",
+                  color: "var(--fg-mid)",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  transition: "color 0.15s",
+                  borderBottom: "1px solid transparent",
+                  paddingBottom: "1px",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.color = "var(--fg)";
+                  (e.currentTarget as HTMLElement).style.borderBottomColor = "var(--fg-dim)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.color = "var(--fg-mid)";
+                  (e.currentTarget as HTMLElement).style.borderBottomColor = "transparent";
+                }}
+              >
+                {lang === "tr" ? "Kaynak" : "Source"}
+                <span style={{ transition: "transform 0.15s" }}>→</span>
+              </a>
+            )}
+            {project.demoLink && (
+              <a
+                href={project.demoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "8px",
+                  color: "var(--accent)",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  borderBottom: "1px solid transparent",
+                  paddingBottom: "1px",
+                  transition: "border-color 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderBottomColor = "rgba(200,165,122,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderBottomColor = "transparent";
+                }}
+              >
+                {lang === "tr" ? "Demo" : "Live"}
+                <span>→</span>
+              </a>
+            )}
+            {!project.link && !project.demoLink && (
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "8px",
+                  color: "var(--fg-dim)",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
+                <span style={{ opacity: 0.5 }}>—</span>
+                {lang === "tr" ? "Gizli" : "Classified"}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function ProjectsPage() {
+  const { t, lang } = useSite();
+
+  return (
+    <div className="pb-20 relative overflow-hidden">
+      {/* Ghost number */}
+      <div
+        aria-hidden
+        className="absolute right-0 top-[-2%] leading-none select-none pointer-events-none"
+        style={{
+          fontFamily: "var(--font-cormorant)",
+          fontWeight: 300,
+          fontSize: "clamp(180px, 32vw, 420px)",
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(255,255,255,0.035)",
+          lineHeight: 1,
+        }}
+      >
+        02
+      </div>
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45 }}
+        className="mb-12 relative z-10"
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "9px",
+            letterSpacing: "0.3em",
+            color: "var(--fg-mid)",
+            textTransform: "uppercase",
+            marginBottom: "14px",
+          }}
+        >
+          {lang === "tr" ? "Seçili Çalışmalar" : "Selected Work"}
+        </div>
+        <h1
+          style={{
+            fontFamily: "var(--font-cormorant)",
+            fontWeight: 400,
+            color: "var(--fg)",
+            fontSize: "clamp(44px, 8vw, 88px)",
+            lineHeight: 1,
+            letterSpacing: "0.02em",
+          }}
+        >
+          {lang === "tr" ? "Projeler" : "Projects"}
+        </h1>
+      </motion.div>
+
+      {/* Count strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.08, duration: 0.4 }}
+        className="mb-8 relative z-10 flex items-center gap-4"
+        style={{ borderBottom: "1px solid var(--border)", paddingBottom: "16px" }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "8px",
+            color: "var(--fg-dim)",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+          }}
+        >
+          {t.projects_page.items.length.toString().padStart(2, "0")} {lang === "tr" ? "proje" : "projects"}
+        </span>
+        <div style={{ flex: 1, height: "1px", backgroundColor: "var(--border)" }} />
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "8px",
+            color: "var(--fg-dim)",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+          }}
+        >
+          2022 — {new Date().getFullYear()}
+        </span>
+      </motion.div>
+
+      {/* Card grid */}
+      <div
+        className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+        style={{ backgroundColor: "var(--border)" }}
+      >
+        {t.projects_page.items.map((project: any, i: number) => (
+          <ProjectCard key={project.id} project={project} lang={lang} index={i} />
         ))}
       </div>
     </div>
   );
-}
-
-function getIconByCategory(category: string) {
-  const lowerCat = category.toLowerCase();
-  if (lowerCat.includes("otomasyon") || lowerCat.includes("automation")) return <Cpu size={24} />;
-  if (lowerCat.includes("yapay") || lowerCat.includes("ai")) return <Layers size={24} />;
-  if (lowerCat.includes("modding") || lowerCat.includes("reverse")) return <Code2 size={24} />;
-  if (lowerCat.includes("data") || lowerCat.includes("veri")) return <Terminal size={24} />;
-  return <Cpu size={24} />;
 }

@@ -1,57 +1,107 @@
 "use client";
 
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Cormorant, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteProvider, useSite } from "@/context/SiteContext";
 import Sidebar from "@/components/Sidebar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const cormorant = Cormorant({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
+});
 
 function DynamicSEO() {
   const { lang } = useSite();
-  
   useEffect(() => {
-    const title = lang === "tr" 
-      ? "Sedat Öner | Bilgisayar Mühendisi & Pratech Kurucu Ortak" 
-      : "Sedat Öner | Computer Engineer & Pratech Co-Founder";
-    
-    const description = lang === "tr"
-      ? "Görüntü İşleme, Otomasyon ve Backend teknolojileri üzerine odaklanan Bilgisayar Mühendisliği öğrencisi ve Pratech kurucu ortağı."
-      : "Computer Engineering student and Pratech co-founder specializing in Computer Vision, Automation, and Backend technologies.";
-
-    document.title = title;
-    
-    // Meta açıkla
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute('content', description);
+    document.title =
+      lang === "tr"
+        ? "Sedat Öner | Bilgisayar Mühendisi & Kurucu Ortak"
+        : "Sedat Öner | Software Engineer & Co-Founder";
   }, [lang]);
-
   return null;
 }
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const { isIntro, lang, setLang } = useSite();
 
+  const btnStyle = (active: boolean): React.CSSProperties => ({
+    fontFamily: "var(--font-mono)",
+    fontSize: "9px",
+    letterSpacing: "0.22em",
+    color: active ? "var(--fg)" : "var(--fg-dim)",
+    background: "none",
+    border: "none",
+    borderBottom: active ? "1px solid var(--accent)" : "1px solid transparent",
+    paddingBottom: "2px",
+    cursor: "pointer",
+    transition: "color 0.15s, border-color 0.15s",
+    textTransform: "uppercase",
+  });
+
   return (
-    <body className={`${inter.variable} ${jetbrains.variable} bg-[#09090b] text-white antialiased selection:bg-blue-500/30 overflow-x-hidden`}>
+    <body className={`${cormorant.variable} ${instrumentSans.variable} ${ibmPlexMono.variable}`}>
       <DynamicSEO />
-      
-      {/* Intro Overlay [cite: 1, 51] */}
+
       <AnimatePresence>
         {isIntro && (
-          <motion.div exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-[#09090b]">
-            <motion.div layoutId="brand-wrapper" className="flex flex-col items-center">
-              <motion.h1 layoutId="brand-text" className="text-5xl md:text-8xl font-bold tracking-tighter text-white uppercase">
-                Sedat Öner
-              </motion.h1>
+          <motion.div
+            key="intro"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: "easeInOut" }}
+            className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
+            style={{ backgroundColor: "var(--bg)" }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.55 }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontWeight: 400,
+                  fontSize: "clamp(32px, 7vw, 72px)",
+                  letterSpacing: "0.22em",
+                  color: "var(--fg)",
+                  lineHeight: 1,
+                  textAlign: "center",
+                }}
+              >
+                SEDAT ÖNER
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "8px",
+                  letterSpacing: "0.32em",
+                  color: "var(--fg-mid)",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                  marginTop: "14px",
+                }}
+              >
+                Istanbul, Turkey
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -59,33 +109,21 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
       <Sidebar />
 
-      <main className="flex-1 md:ml-72 min-h-screen relative">
-        
-        {/* Dil Seçici - Sabit ve Blur Efektli */}
+      <main className="md:ml-56 min-h-screen">
         {!isIntro && (
-            <div className="fixed top-8 right-8 z-100 flex items-center gap-2 bg-[#0c0c0e]/80 backdrop-blur-md border border-white/10 p-1 rounded-full shadow-2xl">
-               <button 
-                 onClick={() => setLang("tr")} 
-                 className={`px-3 py-1 text-xs font-bold rounded-full transition-all ${lang === "tr" ? "bg-white text-black" : "text-gray-500 hover:text-white"}`}
-               >
-                 TR
-               </button>
-               <button 
-                 onClick={() => setLang("en")} 
-                 className={`px-3 py-1 text-xs font-bold rounded-full transition-all ${lang === "en" ? "bg-white text-black" : "text-gray-500 hover:text-white"}`}
-               >
-                 EN
-               </button>
-            </div>
+          <div className="fixed top-6 right-7 z-[100] flex items-center gap-5">
+            <button style={btnStyle(lang === "tr")} onClick={() => setLang("tr")}>TR</button>
+            <button style={btnStyle(lang === "en")} onClick={() => setLang("en")}>EN</button>
+          </div>
         )}
 
-        <div className="fixed inset-0 z-[-1] opacity-[0.02] pointer-events-none" 
-              style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }}>
-        </div>
-
-        <div className="p-6 md:p-16">
+        <div className="px-8 py-12 pt-20 md:pt-12 md:px-14 lg:px-16">
           {!isIntro && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               {children}
             </motion.div>
           )}
@@ -97,7 +135,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className="dark">
+    <html lang="tr">
       <SiteProvider>
         <LayoutContent>{children}</LayoutContent>
       </SiteProvider>

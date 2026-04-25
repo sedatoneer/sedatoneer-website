@@ -1,110 +1,228 @@
 "use client";
 
 import { useSite } from "@/context/SiteContext";
-import { Terminal, Mail, MapPin, Copy, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function ContactPage() {
-  const { t } = useSite();
+  const { t, lang } = useSite();
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = () => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(t.contact.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <div className="max-w-2xl mx-auto h-full flex flex-col justify-center overflow-hidden">
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }} 
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+    <div className="pb-20 max-w-lg relative overflow-hidden">
+      {/* Ghost number */}
+      <div
+        aria-hidden
+        className="absolute right-0 top-[-2%] leading-none select-none pointer-events-none"
+        style={{
+          fontFamily: "var(--font-cormorant)",
+          fontWeight: 400,
+          fontSize: "clamp(180px, 32vw, 420px)",
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(255,255,255,0.035)",
+          lineHeight: 1,
+        }}
       >
-        <h2 className="text-3xl font-bold mb-2 text-white">{t.contact.title}</h2>
-        <p className="text-gray-400 mb-6 text-lg">{t.contact.desc}</p>
-      </motion.div>
-      
-      <div className="grid grid-cols-1 gap-4">
-        {/* E-MAIL KARTI */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="group p-6 bg-[#0c0c0e] border border-white/5 rounded-2xl flex items-center gap-6 hover:border-blue-500/30 transition-all duration-300"
-        >
-            <div className="p-4 bg-blue-500/10 text-blue-400 rounded-xl group-hover:scale-110 transition-transform">
-                <Mail size={28} />
-            </div>
-            <div className="grow">
-                <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-1">E-Mail</div>
-                <a href={`mailto:${t.contact.email}`} className="text-xl font-bold text-white hover:text-blue-400 break-all transition-colors">
-                    {t.contact.email}
-                </a>
-            </div>
-            <button 
-                onClick={handleCopyEmail} 
-                className="p-2 text-gray-500 hover:text-white transition-colors relative"
-                title="Kopyala"
-            >
-                {copied ? <span className="text-xs text-green-500 font-bold">Kopyalandı!</span> : <Copy size={20} />}
-            </button>
-        </motion.div>
-
-        {/* LINKEDIN KARTI */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="group p-6 bg-[#0c0c0e] border border-white/5 rounded-2xl flex items-center gap-6 hover:border-blue-600/30 transition-all duration-300"
-        >
-            <div className="p-4 bg-blue-600/10 text-blue-500 rounded-xl group-hover:scale-110 transition-transform">
-                <Linkedin size={28} />
-            </div>
-            <div className="grow">
-                <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-1">LinkedIn</div>
-                <a 
-                  href={`https://${t.contact.linkedin}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xl font-bold text-white hover:text-blue-500 transition-colors"
-                >
-                    Sedat Öner
-                </a>
-            </div>
-        </motion.div>
-
-        {/* LOKASYON KARTI */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="group p-6 bg-[#0c0c0e] border border-white/5 rounded-2xl flex items-center gap-6 hover:border-purple-500/30 transition-all duration-300"
-        >
-            <div className="p-4 bg-purple-500/10 text-purple-400 rounded-xl group-hover:scale-110 transition-transform">
-                <MapPin size={28} />
-            </div>
-            <div>
-                <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-1">Konum / Location</div>
-                <div className="text-xl font-bold text-white">
-                    {t.contact.location}
-                </div>
-            </div>
-        </motion.div>
-
-        {/* TERMINAL NOTU */}
-        <motion.div
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             transition={{ delay: 0.5 }}
-             className="pt-6 flex items-center gap-2 text-gray-600 text-sm font-mono"
-        >
-            <Terminal size={14} />
-            <span>echo "{t.contact.terminal_note}"</span>
-            <span className="w-2 h-4 bg-blue-500/50 animate-pulse"></span>
-        </motion.div>
+        04
       </div>
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-14 relative z-10"
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "9px",
+            letterSpacing: "0.3em",
+            color: "var(--fg-mid)",
+            textTransform: "uppercase",
+            marginBottom: "16px",
+          }}
+        >
+          {lang === "tr" ? "İletişim" : "Get in Touch"}
+        </div>
+        <h1
+          style={{
+            fontFamily: "var(--font-cormorant)",
+            fontWeight: 400,
+            color: "var(--fg)",
+            fontSize: "clamp(44px, 8vw, 88px)",
+            lineHeight: 1,
+            letterSpacing: "0.02em",
+          }}
+        >
+          {t.contact.title}
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-dm)",
+            fontSize: "14px",
+            color: "var(--fg-mid)",
+            lineHeight: 1.75,
+            fontWeight: 400,
+            marginTop: "16px",
+          }}
+        >
+          {t.contact.desc}
+        </p>
+      </motion.div>
+
+      {/* Email */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.12 }}
+        className="mb-12 pb-12 relative z-10"
+        style={{ borderBottom: "1px solid var(--border)" }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "8px",
+            color: "var(--fg-dim)",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            marginBottom: "12px",
+          }}
+        >
+          {lang === "tr" ? "E-Posta" : "Email"}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px", flexWrap: "wrap" }}>
+          <a
+            href={`mailto:${t.contact.email}`}
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontWeight: 400,
+              fontSize: "clamp(17px, 2.8vw, 26px)",
+              color: "var(--fg)",
+              letterSpacing: "0.01em",
+              transition: "opacity 0.15s",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.55")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+          >
+            {t.contact.email}
+          </a>
+          <button
+            onClick={handleCopy}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "8.5px",
+              color: copied ? "var(--accent)" : "var(--fg-dim)",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              transition: "color 0.15s",
+            }}
+          >
+            {copied
+              ? lang === "tr" ? "Kopyalandı" : "Copied"
+              : lang === "tr" ? "Kopyala"    : "Copy"}
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Links */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.22 }}
+        className="mb-12 relative z-10"
+        style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+      >
+        {[
+          { label: "LinkedIn",                              value: "/in/sedatoneer",   href: "https://linkedin.com/in/sedatoneer" },
+          { label: "GitHub",                               value: "/sedatoneer",      href: "https://github.com/sedatoneer"      },
+          { label: lang === "tr" ? "Konum" : "Location",  value: t.contact.location, href: null                                 },
+        ].map(({ label, value, href }) => (
+          <div key={label} style={{ display: "flex", alignItems: "baseline", gap: "32px" }}>
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "7.5px",
+                color: "var(--fg-dim)",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                minWidth: "68px",
+                flexShrink: 0,
+              }}
+            >
+              {label}
+            </span>
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "var(--font-dm)",
+                  fontSize: "14px",
+                  color: "var(--fg-mid)",
+                  fontWeight: 400,
+                  transition: "color 0.15s",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--fg)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--fg-mid)")}
+              >
+                {value}
+              </a>
+            ) : (
+              <span
+                style={{
+                  fontFamily: "var(--font-dm)",
+                  fontSize: "14px",
+                  color: "var(--fg-mid)",
+                  fontWeight: 400,
+                }}
+              >
+                {value}
+              </span>
+            )}
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Availability */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.34 }}
+        className="relative z-10"
+        style={{ display: "flex", alignItems: "center", gap: "12px" }}
+      >
+        <div
+          style={{
+            width: "6px",
+            height: "6px",
+            backgroundColor: "var(--accent)",
+            flexShrink: 0,
+          }}
+        />
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "9px",
+            color: "var(--fg-mid)",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+          }}
+        >
+          {lang === "tr" ? "Yeni projelere açık" : "Available for new projects"}
+        </span>
+      </motion.div>
     </div>
   );
 }
