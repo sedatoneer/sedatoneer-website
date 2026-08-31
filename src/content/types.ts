@@ -7,17 +7,9 @@ export function isLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);
 }
 
-/**
- * Lifecycle state of a system. This is the structural device the whole site is
- * organised around, so it has to mean something precise:
- *
- *  running — in production or under active development right now
- *  shipped — finished and released, source is public
- *  private — running, but no public source to point at
- */
 export type Status = "running" | "shipped" | "private";
 
-/** Projects that earn a hand-drawn schematic. Not every project gets one. */
+/** Projects that earn a diagram. Not every project gets one. */
 export type SchematicId =
   | "nac-system"
   | "nac-gap-analyzer"
@@ -39,7 +31,6 @@ export interface ProjectFacts {
   schematic?: SchematicId;
 }
 
-/** Locale-dependent copy, keyed by slug. */
 export interface ProjectCopy {
   domain: string;
   summary: string;
@@ -63,7 +54,7 @@ export interface Content {
   meta: {
     title: string;
     description: string;
-    ogTagline: string;
+    tagline: string;
   };
   nav: {
     home: string;
@@ -72,26 +63,19 @@ export interface Content {
     contact: string;
     skip: string;
   };
-  rail: {
-    heading: string;
-    role: string;
-    running: string;
-    shipped: string;
-    localTime: string;
-    language: string;
+  window: {
+    /** Menu bar labels. Part of the frame, not navigation. */
+    menu: string[];
+    colorHint: string;
+    colorPicked: string;
   };
   home: {
-    headline: string[];
+    headline: string;
     lede: string;
-    disciplines: string[];
+    doingLabel: string;
+    doing: string[];
     toProjects: string;
     toContact: string;
-    indexHeading: string;
-    indexNote: string;
-    graphHeading: string;
-    graphNote: string;
-    graphHint: string;
-    graphReset: string;
   };
   projects: {
     heading: string;
@@ -99,13 +83,7 @@ export interface Content {
     source: string;
     demo: string;
     noSource: string;
-    stack: string;
-    schematic: string;
-    filterAll: string;
-    filteredBy: string;
-    empty: string;
-    usedIn: string;
-    count: string;
+    howItWorks: string;
     copy: Record<string, ProjectCopy>;
   };
   status: Record<Status, string>;
@@ -113,19 +91,18 @@ export interface Content {
     heading: string;
     lede: string;
     timelineHeading: string;
-    /** The word marking an ongoing role, used to light the live dot. */
-    presentWord: string;
     skillsHeading: string;
+    presentWord: string;
     timeline: TimelineEntry[];
     skills: SkillGroup[];
   };
   contact: {
     heading: string;
     lede: string;
-    availability: string;
     emailLabel: string;
     email: string;
     channels: { label: string; value: string; href: string }[];
+    locationLabel: string;
     location: string;
   };
 }

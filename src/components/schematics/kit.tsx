@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 
-/* Shared drawing language for every schematic: 1px seams, square corners,
-   mono labels, amber reserved for the one path that carries the idea. */
+/* Diagrams drawn the way you'd draw them in Paint: black lines on white,
+   square corners, no fills. The one highlighted path uses the colour the
+   visitor picked from the palette. */
 
-export const LINE = "var(--color-line-hi)";
-export const SIGNAL = "var(--color-signal)";
-export const INK = "var(--color-ink)";
-export const INK2 = "var(--color-ink-2)";
-export const INK3 = "var(--color-ink-3)";
+export const LINE = "#000000";
+export const SIGNAL = "var(--accent-ink)";
+export const INK = "#000000";
+export const INK2 = "#000000";
+export const INK3 = "#595959";
 
 export function Frame({
   width,
@@ -22,7 +23,7 @@ export function Frame({
 }) {
   return (
     // Focusable so the diagram can be scrolled from the keyboard on narrow screens.
-    <div className="overflow-x-auto focus-visible:outline-2" tabIndex={0} role="group" aria-label={title}>
+    <div className="overflow-x-auto" tabIndex={0} role="group" aria-label={title}>
       <svg
         role="img"
         aria-label={title}
@@ -30,7 +31,8 @@ export function Frame({
         width={width}
         height={height}
         className="h-auto w-full"
-        style={{ minWidth: Math.min(width, 640) }}
+        style={{ minWidth: Math.min(width, 620) }}
+        shapeRendering="crispEdges"
       >
         <defs>
           <marker
@@ -38,8 +40,8 @@ export function Frame({
             viewBox="0 0 8 8"
             refX="7"
             refY="4"
-            markerWidth="7"
-            markerHeight="7"
+            markerWidth="6"
+            markerHeight="6"
             orient="auto-start-reverse"
           >
             <path d="M 0 1 L 7 4 L 0 7 z" fill={LINE} />
@@ -49,8 +51,8 @@ export function Frame({
             viewBox="0 0 8 8"
             refX="7"
             refY="4"
-            markerWidth="7"
-            markerHeight="7"
+            markerWidth="6"
+            markerHeight="6"
             orient="auto-start-reverse"
           >
             <path d="M 0 1 L 7 4 L 0 7 z" fill={SIGNAL} />
@@ -87,17 +89,17 @@ export function Box({
         y={y}
         width={w}
         height={h}
-        fill={accent ? "color-mix(in srgb, var(--color-signal) 10%, transparent)" : "var(--color-panel-hi)"}
+        fill="#ffffff"
         stroke={accent ? SIGNAL : LINE}
-        strokeWidth={1}
+        strokeWidth={2}
       />
       <text
         x={cx}
-        y={sub ? y + h / 2 - 3 : y + h / 2 + 4}
+        y={sub ? y + h / 2 - 2 : y + h / 2 + 4}
         textAnchor="middle"
-        className="font-mono"
+        fontFamily="Tahoma, Verdana, sans-serif"
         fontSize={12}
-        fill={accent ? SIGNAL : INK}
+        fill={INK}
       >
         {label}
       </text>
@@ -106,7 +108,7 @@ export function Box({
           x={cx}
           y={y + h / 2 + 13}
           textAnchor="middle"
-          className="font-mono"
+          fontFamily="Tahoma, Verdana, sans-serif"
           fontSize={10}
           fill={INK3}
         >
@@ -131,8 +133,8 @@ export function Arrow({
       d={d}
       fill="none"
       stroke={accent ? SIGNAL : LINE}
-      strokeWidth={1}
-      strokeDasharray={dashed ? "3 3" : undefined}
+      strokeWidth={accent ? 2 : 1}
+      strokeDasharray={dashed ? "4 3" : undefined}
       markerEnd={`url(#${accent ? "arrow-signal" : "arrow-line"})`}
     />
   );
@@ -156,9 +158,8 @@ export function Caption({
       x={x}
       y={y}
       textAnchor={anchor}
-      className="font-mono"
+      fontFamily="Tahoma, Verdana, sans-serif"
       fontSize={10}
-      letterSpacing="0.06em"
       fill={accent ? SIGNAL : INK3}
     >
       {children}

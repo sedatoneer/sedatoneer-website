@@ -2,9 +2,9 @@
 
 Personal site for Sedat Öner — backend and automation engineer.
 
-The design direction is **Control Room**: the portfolio as a status page for a
-person. Every project is a system with a real lifecycle state, and the stack
-graph on the home page is generated from the project data rather than drawn.
+The whole site is one MS Paint window sitting on the Windows 95 desktop. The
+tool palette on the left is the navigation, and the colour palette at the bottom
+actually works: pick a colour and the links and diagrams follow it.
 
 ## Run
 
@@ -43,25 +43,30 @@ matching copy in both locales fails the build, by design.
 
 ## Diagrams
 
-`src/components/schematics/` holds hand-authored SVG diagrams — no image files
-to manage, and they follow the theme. A project gets one only when there's a
-real mechanism worth drawing; the rest just show their stack. Register a new one
-in `SchematicId` (`src/content/types.ts`) and the map at the bottom of
-`src/components/schematics/index.tsx`.
+`src/components/schematics/` holds hand-authored SVG diagrams — black lines on
+white, drawn the way you'd draw them in Paint. No image files to manage. A
+project gets one only when there's a real mechanism worth drawing; the rest just
+list their stack. Register a new one in `SchematicId` (`src/content/types.ts`)
+and the map at the bottom of `src/components/schematics/index.tsx`.
 
 ## Notes
 
+- **The colour palette.** `src/lib/colour.ts` stores the picked colour in
+  localStorage and hands it to React through `useSyncExternalStore`. It exports
+  two values: `--accent` is the raw colour (swatch, title-bar icon) and
+  `--accent-ink` is the same colour darkened until it clears WCAG AA on white
+  (links, diagram strokes). The palette includes white and pale yellow, so text
+  can never use the raw value.
+- `--color-shadow` (`#808080`) is for bevels only. Grey **text** uses
+  `--color-muted`, which is 7:1 on white.
 - `src/app/[locale]/` — `tr` and `en` are prerendered, so `<html lang>`,
   hreflang, and canonical URLs are all correct and an English link is shareable.
 - Set `NEXT_PUBLIC_SITE_URL` in the deploy environment. It drives metadata,
   Open Graph, `sitemap.xml`, and `robots.txt` (default: `https://sedatoneer.com`).
-- The OG image is generated at `src/app/[locale]/opengraph-image.tsx`. It cases
-  Turkish text in JS, not CSS — Satori has no `lang` context, so
-  `text-transform: uppercase` would produce "MÜHENDISI".
-- Design tokens and the type scale are in `src/app/globals.css`. Every text
-  colour clears WCAG AA on both surfaces; `verify` re-checks it with axe.
+- The window fills the viewport and only the canvas scrolls, so the tool palette
+  and colour palette stay reachable on long pages.
 
 ## Stack
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 ·
-Archivo / Public Sans / JetBrains Mono
+Pixelify Sans for headings, Tahoma/MS Sans Serif for everything else

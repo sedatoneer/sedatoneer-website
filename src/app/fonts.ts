@@ -1,24 +1,10 @@
-import { Archivo, Public_Sans, JetBrains_Mono } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 
-/** Display — tight engineering grotesk with a real width axis. */
-export const archivo = Archivo({
+/** Headings only. Body text uses the Windows UI stack (Tahoma), no webfont. */
+export const pixelify = Pixelify_Sans({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-archivo",
+  variable: "--font-pixelify",
   display: "swap",
 });
 
-/** Body — designed for public infrastructure. Institutional, precise. */
-export const publicSans = Public_Sans({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-public-sans",
-  display: "swap",
-});
-
-/** Data and labels — what the editor looks like. */
-export const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-
-export const fontVariables = `${archivo.variable} ${publicSans.variable} ${jetbrainsMono.variable}`;
+export const fontVariables = pixelify.variable;

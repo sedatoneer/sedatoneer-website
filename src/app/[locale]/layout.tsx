@@ -4,9 +4,8 @@ import { notFound } from "next/navigation";
 import { fontVariables } from "../fonts";
 import { getContent } from "@/content";
 import { LOCALES, isLocale, type Locale } from "@/content/types";
-import { countByStatus } from "@/content/projects";
 import { SITE_URL, AUTHOR } from "@/lib/site";
-import StatusRail from "@/components/chrome/StatusRail";
+import PaintWindow from "@/components/paint/PaintWindow";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -67,21 +66,14 @@ export default async function LocaleLayout({
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-signal focus:bg-panel focus:px-4 focus:py-2 focus:font-mono focus:text-[12px] focus:uppercase focus:tracking-[0.14em] focus:text-signal"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:bevel-out focus:bg-silver focus:px-3 focus:py-1.5 focus:text-[12px] focus:text-ink"
         >
           {content.nav.skip}
         </a>
 
-        <StatusRail
-          locale={locale as Locale}
-          content={content}
-          running={countByStatus("running")}
-          shipped={countByStatus("shipped")}
-        />
-
-        <main id="main" className="min-h-dvh pt-14 lg:ml-[15rem] lg:pt-0">
+        <PaintWindow locale={locale as Locale} content={content}>
           {children}
-        </main>
+        </PaintWindow>
       </body>
     </html>
   );

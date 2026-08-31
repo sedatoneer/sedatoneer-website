@@ -1,23 +1,19 @@
 import { ImageResponse } from "next/og";
 import { getContent } from "@/content";
-import { countByStatus } from "@/content/projects";
 import { isLocale } from "@/content/types";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Sedat Öner";
 
+/** The share card is the same Paint window, scaled up. */
 export default async function OpengraphImage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const lang = isLocale(locale) ? locale : "tr";
-  const content = getContent(lang);
-  // Satori has no `lang` context, so CSS text-transform would lowercase-i
-  // Turkish text incorrectly ("MÜHENDISI"). Case it explicitly instead.
-  const upper = (value: string) => value.toLocaleUpperCase(lang === "tr" ? "tr-TR" : "en-US");
+  const content = getContent(isLocale(locale) ? locale : "tr");
 
   return new ImageResponse(
     (
@@ -26,61 +22,101 @@ export default async function OpengraphImage({
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: "#08090C",
-          padding: "72px",
+          background: "#008080",
+          padding: 48,
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 14, height: 14, borderRadius: 99, background: "#F0A202" }} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            background: "#c0c0c0",
+            border: "4px solid #ffffff",
+            borderRightColor: "#000000",
+            borderBottomColor: "#000000",
+            padding: 6,
+          }}
+        >
+          {/* Title bar */}
           <div
             style={{
+              display: "flex",
+              alignItems: "center",
+              background: "#000080",
+              color: "#ffffff",
+              padding: "10px 14px",
               fontSize: 26,
-              letterSpacing: 6,
-              color: "#E4E8EF",
-              fontWeight: 600,
+              fontWeight: 700,
             }}
           >
-            {upper("Sedat Öner")}
+            <div style={{ display: "flex", flex: 1 }}>sedatoneer.com — Paint</div>
+            <div style={{ display: "flex", gap: 6 }}>
+              {["–", "□", "✕"].map((glyph) => (
+                <div
+                  key={glyph}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 34,
+                    height: 30,
+                    background: "#c0c0c0",
+                    color: "#000000",
+                    border: "2px solid #ffffff",
+                    borderRightColor: "#000000",
+                    borderBottomColor: "#000000",
+                    fontSize: 18,
+                  }}
+                >
+                  {glyph}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div
-          style={{
-            display: "flex",
-            fontSize: 78,
-            lineHeight: 1.1,
-            color: "#E4E8EF",
-            fontWeight: 700,
-            letterSpacing: -1.5,
-            maxWidth: 940,
-          }}
-        >
-          {content.meta.ogTagline}
-        </div>
+          {/* Canvas */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+              marginTop: 6,
+              background: "#ffffff",
+              border: "2px solid #808080",
+              borderRightColor: "#ffffff",
+              borderBottomColor: "#ffffff",
+              padding: 48,
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ display: "flex", fontSize: 64, fontWeight: 700, color: "#000000" }}>
+              Sedat Öner
+            </div>
+            <div style={{ display: "flex", marginTop: 20, fontSize: 32, color: "#000000" }}>
+              {content.meta.tagline}
+            </div>
+          </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderTop: "1px solid #232936",
-            paddingTop: 28,
-            fontSize: 22,
-            letterSpacing: 3,
-            color: "#98A2B3",
-          }}
-        >
-          <div style={{ display: "flex" }}>{upper(content.rail.role)}</div>
-          <div style={{ display: "flex", gap: 28 }}>
-            <div style={{ display: "flex", color: "#F0A202" }}>
-              {countByStatus("running")} {upper(content.rail.running)}
-            </div>
-            <div style={{ display: "flex" }}>
-              {countByStatus("shipped")} {upper(content.rail.shipped)}
-            </div>
+          {/* Palette strip */}
+          <div style={{ display: "flex", gap: 5, marginTop: 8 }}>
+            {["#000000", "#808080", "#800000", "#ff0000", "#ff8040", "#ffff00", "#00ff00",
+              "#008080", "#00ffff", "#0000ff", "#000080", "#8000ff", "#ff00ff", "#804000"].map(
+              (colour) => (
+                <div
+                  key={colour}
+                  style={{
+                    width: 44,
+                    height: 30,
+                    background: colour,
+                    border: "2px solid #808080",
+                    borderRightColor: "#ffffff",
+                    borderBottomColor: "#ffffff",
+                  }}
+                />
+              ),
+            )}
           </div>
         </div>
       </div>

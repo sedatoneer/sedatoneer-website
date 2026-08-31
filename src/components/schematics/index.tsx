@@ -1,5 +1,5 @@
 import type { Locale, SchematicId } from "@/content/types";
-import { Frame, Box, Arrow, Caption, LINE, INK3 } from "./kit";
+import { Frame, Box, Arrow, Caption, LINE } from "./kit";
 
 type Copy = Record<Locale, string>;
 const pick = (c: Copy, l: Locale) => c[l];
@@ -193,9 +193,5 @@ const SCHEMATICS: Record<SchematicId, (p: { locale: Locale }) => React.JSX.Eleme
 export default function Schematic({ id, locale }: { id: SchematicId; locale: Locale }) {
   const Component = SCHEMATICS[id];
   if (!Component) return null;
-  return (
-    <div className="text-ink" style={{ color: INK3 }}>
-      <Component locale={locale} />
-    </div>
-  );
+  return <Component locale={locale} />;
 }
