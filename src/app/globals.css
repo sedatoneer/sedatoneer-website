@@ -1,21 +1,38 @@
 @import "tailwindcss";
 
-:root {
-  --bg:           #0C0C0C;
-  --bg-sidebar:   #080808;
-  --surface:      #141414;
-  --surface-hi:   #1C1C1C;
-  --fg:           #EDE8DF;
-  --fg-mid:       #9A9892;
-  --fg-dim:       #484644;
-  --accent:       #C8A57A;
-  --border:       rgba(255, 255, 255, 0.07);
-  --border-hi:    rgba(255, 255, 255, 0.13);
+/* ─────────────────────────────────────────────────────────────
+   Control Room — design tokens
+
+   Cool slate instrument panel with a single amber signal.
+   Amber is scarce on purpose: status dots, active nav, one hover
+   state. Everything else stays monochrome.
+
+   Every text pair below clears WCAG AA (4.5:1) on both --color-void
+   and --color-panel. Verified in scripts/verify.mjs.
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-void: #08090c;
+  --color-panel: #101319;
+  --color-panel-hi: #171b23;
+  --color-line: #232936;
+  --color-line-hi: #2e3644;
+
+  --color-ink: #e4e8ef;    /* 15.4:1 on void */
+  --color-ink-2: #98a2b3;  /*  7.7:1 on void · 7.2:1 on panel */
+  --color-ink-3: #737e90;  /*  4.8:1 on void · 4.5:1 on panel */
+
+  --color-signal: #f0a202;     /* 9.4:1 on void */
+  --color-signal-dim: #7a5410;
+
+  --font-display: var(--font-archivo), "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-public-sans), "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-panel: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@theme inline {
-  --z-100: 100;
-}
+/* ── Base ───────────────────────────────────────────────────── */
 
 *,
 *::before,
@@ -25,26 +42,168 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-dm), system-ui, sans-serif;
-  line-height: 1.6;
+  margin: 0;
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-synthesis-weight: none;
 }
-
 
 ::selection {
-  background: rgba(200, 165, 122, 0.2);
-  color: var(--fg);
+  background: var(--color-signal);
+  color: var(--color-void);
 }
 
-::-webkit-scrollbar           { width: 1px; }
-::-webkit-scrollbar-track     { background: transparent; }
-::-webkit-scrollbar-thumb     { background: var(--fg-dim); }
+/* ── Focus ──────────────────────────────────────────────────── */
 
-* { scrollbar-width: thin; scrollbar-color: var(--fg-dim) transparent; }
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ── Scrollbar — an instrument, not a hairline ──────────────── */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border: 3px solid var(--color-void);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-line-hi);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) var(--color-void);
+}
+
+/* ── Utilities ──────────────────────────────────────────────── */
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+@utility display-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 5.4rem);
+  line-height: 0.97;
+  letter-spacing: -0.035em;
+}
+
+@utility display-page {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.8vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+@utility display-item {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+@utility panel-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.35;
+}
+
+/* ── Load choreography ──────────────────────────────────────────
+   Content is server-rendered and present in the DOM immediately.
+   These only animate it in; they never gate it.
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse-signal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.rise {
+  animation: rise 0.55s var(--ease-panel) backwards;
+}
+
+.sweep {
+  transform-origin: left;
+  animation: sweep 0.7s var(--ease-panel) backwards;
+}
+
+.pulse-signal {
+  animation: pulse-signal 2.4s ease-in-out infinite;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+}
