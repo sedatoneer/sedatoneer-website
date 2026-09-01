@@ -53,24 +53,31 @@ export default async function OpengraphImage({
           >
             <div style={{ display: "flex", flex: 1 }}>sedatoneer.com — Paint</div>
             <div style={{ display: "flex", gap: 6 }}>
-              {["–", "□", "✕"].map((glyph) => (
+              {/* Drawn, not typed — Satori's font has no box or cross glyph,
+                  so those would come out as tofu. */}
+              {["minimise", "maximise", "close"].map((kind) => (
                 <div
-                  key={glyph}
+                  key={kind}
                   style={{
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: kind === "minimise" ? "flex-end" : "center",
                     justifyContent: "center",
                     width: 34,
                     height: 30,
+                    paddingBottom: kind === "minimise" ? 6 : 0,
                     background: "#c0c0c0",
-                    color: "#000000",
                     border: "2px solid #ffffff",
                     borderRightColor: "#000000",
                     borderBottomColor: "#000000",
-                    fontSize: 18,
                   }}
                 >
-                  {glyph}
+                  {kind === "minimise" ? (
+                    <div style={{ width: 12, height: 3, background: "#000000" }} />
+                  ) : kind === "maximise" ? (
+                    <div style={{ width: 14, height: 12, border: "2px solid #000000" }} />
+                  ) : (
+                    <div style={{ display: "flex", fontSize: 17, color: "#000000" }}>X</div>
+                  )}
                 </div>
               ))}
             </div>

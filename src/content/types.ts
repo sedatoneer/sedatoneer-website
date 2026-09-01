@@ -55,6 +55,7 @@ export interface Content {
     title: string;
     description: string;
     tagline: string;
+    role: string;
   };
   nav: {
     home: string;

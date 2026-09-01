@@ -5,7 +5,8 @@ export const tr: Content = {
     title: "Sedat Öner — Backend ve Otomasyon Mühendisi",
     description:
       "Bilgisayar mühendisliği öğrencisi, Pratech kurucu ortağı, Qupsoft'ta full stack geliştirici. RADIUS policy engine'leri, ağ analiz araçları, kendini onaran test koşucuları ve kazıma botları.",
-    tagline: "Kimse bakmazken çalışan sistemler",
+    tagline: "Bilgisayar Mühendisliği",
+    role: "Bilgisayar mühendisi",
   },
   nav: {
     home: "Ana Sayfa",
