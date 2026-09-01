@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getContent } from "@/content";
 import { isLocale } from "@/content/types";
+import { alternatesFor } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,7 @@ export async function generateMetadata({
   return {
     title: content.contact.heading,
     description: content.contact.lede,
-    alternates: { canonical: `/${locale}/contact` },
+    alternates: alternatesFor(locale, "/contact"),
   };
 }
 

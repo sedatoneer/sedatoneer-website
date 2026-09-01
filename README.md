@@ -64,10 +64,35 @@ and the map at the bottom of `src/components/schematics/index.tsx`.
 | Window buttons | Minimise to the taskbar, maximise, close (asks to save the drawing) |
 | Taskbar | Start menu is a second way into the pages; the clock is live |
 | Status bar | Cursor coordinates while drawing, otherwise the last action |
+| Title bar | Shows `*` while a drawing is unsaved; double-click it to maximise |
+| 404 | A Windows 95 error dialog, in both languages |
 
 A drawing belongs to the page it was drawn on, so it is stored against that
 path and reads as empty once you navigate away. Nothing is persisted except the
 picked colour.
+
+## Drawings
+
+`src/components/paint/hand.ts` generates mouse-drawn strokes: `M x y L x y …`
+paths sampled about every 5px, pushed off course by a damped random walk so the
+wobble drifts the way a real tremor does instead of buzzing. Circles get a slow
+radius wobble and run past where they started. Every stroke is seeded, so the
+drawing is identical on the server, in the browser, and between renders.
+
+`Doodle.tsx` uses it for the smiley on the home page and the waving figure on
+About, both at the medium brush width and in the palette colour.
+
+## SEO
+
+Per-page `generateMetadata`, canonical + `tr` / `en` / `x-default` hreflang,
+`sitemap.xml`, `robots.txt`, a web manifest, an SVG favicon, generated Open
+Graph images, and JSON-LD: a `Person` + `WebSite` graph site-wide and an
+`ItemList` of `SoftwareSourceCode` on the projects page. `npm run verify`
+asserts all of it against a running server.
+
+**`alternates` is replaced, not merged.** A page that sets only `canonical`
+silently drops its hreflang links, so always build it with `alternatesFor()`
+from `src/lib/site.ts`.
 
 ## Notes
 
@@ -91,6 +116,12 @@ picked colour.
   white.
 - Per-page state is derived during render, not reset in an effect — see `board`
   in `PaintWindow.tsx`.
+- `src/content/index.ts` compares the two locales at module load and throws if
+  their shapes differ, so editing Turkish and forgetting English fails the build
+  instead of shipping a page that says less in one language.
+- Diagrams live in `src/components/schematics/`. Every stage is numbered because
+  these are real sequences, and every arrow is labelled — an unlabelled arrow
+  only says "related somehow".
 
 ## Stack
 

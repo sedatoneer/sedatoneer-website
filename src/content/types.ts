@@ -96,6 +96,7 @@ export interface Content {
     taskbar: { start: string };
   };
   home: {
+    doodleAlt: string;
     headline: string;
     lede: string;
     doingLabel: string;
@@ -114,6 +115,7 @@ export interface Content {
   };
   status: Record<Status, string>;
   about: {
+    doodleAlt: string;
     heading: string;
     lede: string;
     timelineHeading: string;
@@ -121,6 +123,11 @@ export interface Content {
     presentWord: string;
     timeline: TimelineEntry[];
     skills: SkillGroup[];
+  };
+  notFound: {
+    title: string;
+    body: string;
+    action: string;
   };
   contact: {
     heading: string;

@@ -202,12 +202,16 @@ export default function PaintWindow({
           )}
         >
           {/* Title bar */}
-          <div className="print-chrome on-title flex items-center gap-2 bg-title px-1.5 py-[3px]">
+          <div
+            className="print-chrome on-title flex items-center gap-2 bg-title px-1.5 py-[3px]"
+            onDoubleClick={() => setMaximized((v) => !v)}
+          >
             <svg aria-hidden viewBox="0 0 16 16" width={14} height={14} shapeRendering="crispEdges">
               <rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000" />
               <path d="M3 12 L7 5 L10 9 L12 7 L13 12 Z" fill={colour} stroke="#000" strokeWidth="1" />
             </svg>
             <span className="flex-1 truncate text-[13px] font-bold text-title-text">
+              {strokes.length > 0 ? "*" : ""}
               {current} — Paint
             </span>
             <span className="flex gap-[2px]">
@@ -402,7 +406,7 @@ export default function PaintWindow({
       <Taskbar
         locale={locale}
         content={content}
-        title={`${current} — Paint`}
+        title={`${strokes.length > 0 ? "*" : ""}${current} — Paint`}
         minimized={minimized}
         onToggleWindow={() => setMinimized((v) => !v)}
       />

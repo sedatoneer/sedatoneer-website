@@ -65,6 +65,76 @@ const browser = await chromium.launch();
   else fail("meta description missing");
 }
 
+/* 1b ─ SEO surface */
+{
+  const check = async (path, locale) => {
+    const html = await fetch(`${BASE}${path}`).then((r) => r.text());
+    const has = (re, what) =>
+      re.test(html) ? pass(`${what} · ${path}`) : fail(`${what} missing on ${path}`);
+
+    has(/<title>[^<]{10,}<\/title>/, "title");
+    has(/<meta name="description" content="[^"]{50,}"/, "description");
+    has(new RegExp(`<link rel="canonical" href="[^"]*${path}"`), "canonical");
+    has(/hreflang="x-default"/i, "x-default hreflang");
+    has(/hreflang="tr"/i, "tr hreflang");
+    has(/hreflang="en"/i, "en hreflang");
+    has(/<meta property="og:title"/, "og:title");
+    has(/<meta property="og:image"/, "og:image");
+    has(/<meta name="twitter:card"/, "twitter:card");
+    has(new RegExp(`<html[^>]*lang="${locale}"`), "html lang");
+    has(/<h1[^>]*>/, "h1");
+  };
+
+  await check("/tr", "tr");
+  await check("/en/projects", "en");
+
+  const home = await fetch(`${BASE}/tr`).then((r) => r.text());
+  const blocks = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)];
+  if (blocks.length === 0) {
+    fail("no JSON-LD on /tr");
+  } else {
+    for (const [, raw] of blocks) {
+      try {
+        const parsed = JSON.parse(raw);
+        const types = JSON.stringify(parsed);
+        if (types.includes("Person") && types.includes("WebSite")) {
+          pass("JSON-LD Person + WebSite parse cleanly");
+        } else {
+          fail(`JSON-LD present but missing Person/WebSite: ${types.slice(0, 80)}`);
+        }
+      } catch (error) {
+        fail(`JSON-LD does not parse: ${error.message}`);
+      }
+    }
+  }
+
+  const projects = await fetch(`${BASE}/tr/projects`).then((r) => r.text());
+  const projectBlocks = [
+    ...projects.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs),
+  ].map(([, raw]) => JSON.parse(raw));
+  const itemList = projectBlocks.find((block) => block["@type"] === "ItemList");
+  if (itemList && itemList.itemListElement.length > 0) {
+    pass(`projects expose an ItemList of ${itemList.itemListElement.length}`);
+  } else {
+    fail("projects page has no ItemList structured data");
+  }
+
+  for (const [path, expect] of [
+    ["/robots.txt", /Sitemap:/],
+    ["/sitemap.xml", /<loc>.*\/tr<\/loc>/],
+    ["/manifest.webmanifest", /"start_url"/],
+    ["/icon.svg", /<svg/],
+  ]) {
+    const body = await fetch(`${BASE}${path}`).then((r) => r.text());
+    if (expect.test(body)) pass(`${path} served`);
+    else fail(`${path} is missing or malformed`);
+  }
+
+  const missing = await fetch(`${BASE}/tr/does-not-exist`);
+  if (missing.status === 404) pass("unknown page returns 404");
+  else fail(`unknown page returned ${missing.status}`);
+}
+
 /* 2 ─ Screenshots, console errors, and axe across every page */
 for (const [tag, width, height] of VIEWPORTS) {
   const context = await browser.newContext({ viewport: { width, height } });

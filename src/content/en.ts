@@ -75,16 +75,17 @@ export const en: Content = {
     taskbar: { start: "Start" },
   },
   home: {
+    doodleAlt: "A hand-drawn smiley face, made with the brush",
     headline: "Hi, I'm Sedat.",
-    lede: "I study computer engineering at Düzce University, co-founded Pratech, and build full stack at Qupsoft. Most of my work sits in the background: APIs that process receipts, policy engines that gate network access, scrapers that run overnight.",
+    lede: "I study computer engineering at Düzce University. I'm a co-founder of the Pratech startup, and I build full stack at Qupsoft.",
     doingLabel: "What I do",
-    doing: ["Backend", "Automation", "Reverse engineering", "Computer vision"],
-    toProjects: "See the projects",
-    toContact: "Email me",
+    doing: ["Backend", "Automation", "Reverse engineering", "Computer vision", "Web"],
+    toProjects: "My projects",
+    toContact: "Write to me",
   },
   projects: {
     heading: "Projects",
-    lede: "Things I built. Read the source where it's open, read what it does where it isn't.",
+    lede: "Things I built. Where the source is open you can read the code; where it isn't, you can look at the live version.",
     source: "Source",
     demo: "Live",
     noSource: "Closed source",
@@ -98,7 +99,7 @@ export const en: Content = {
       pratech: {
         domain: "Co-founder · Production",
         summary:
-          "Digital receipt and expense management startup. I built the backend, the server infrastructure, the corporate site, and the user dashboard from scratch.",
+          "Across the software work I built the backend of the programs, the server infrastructure, the corporate site, and the user dashboard from scratch.",
       },
       "nac-system": {
         domain: "Network security",
@@ -128,12 +129,12 @@ export const en: Content = {
       whatscontrol: {
         domain: "Automation",
         summary:
-          "Listens to WhatsApp Web through Selenium, parses incoming messages as commands, and drives a Mi Box over ADB. I wrote it because I lost the remote.",
+          "Listens to WhatsApp Web through Selenium, parses incoming messages as commands, and drives a Mi Box over ADB. I wrote it because the remote kept giving me trouble and I was bored. It drops onto any smart TV easily.",
       },
       flexfarm: {
         domain: "Education · Gamification",
         summary:
-          "An interactive web game that teaches CSS Flexbox by playing it. Twenty levels, a story mode, and a live code editor.",
+          "An interactive web game that teaches CSS Flexbox by playing it. It has twenty levels, a story mode, and a live code editor.",
       },
       stemxfuture: {
         domain: "Web · NGO",
@@ -143,7 +144,7 @@ export const en: Content = {
       "data-bots": {
         domain: "Data engineering",
         summary:
-          "Scrapers that pull and process thousands of rows from tender platforms like EKAP. They run overnight and leave clean data by morning. Source is closed.",
+          "Scrapers that pull and process thousands of rows from tender platforms like EKAP. They run overnight and leave clean data by morning, and can be run by hand whenever you want. Source is closed.",
       },
     },
   },
@@ -153,6 +154,7 @@ export const en: Content = {
     private: "source is closed",
   },
   about: {
+    doodleAlt: "A hand-drawn stick figure waving, made with the brush",
     heading: "About",
     lede: "I turn complexity into infrastructure that runs unattended. My favourite feedback is not noticing that something has been running fine for months.",
     timelineHeading: "Experience",
@@ -161,23 +163,23 @@ export const en: Content = {
     timeline: [
       {
         period: "Mar 2026 — Present",
-        role: "Full Stack Developer",
+        role: "Full Stack Developer & DevOps Engineer",
         org: "Qupsoft",
         detail:
-          "Full stack development of a B2B and B2C digital receipt platform. Scalable architecture on React, FastAPI, and PostgreSQL. Düzce, hybrid.",
+          "Full stack development of a B2B and B2C digital receipt and loyalty platform. Scalable architecture on React, FastAPI, and PostgreSQL. Düzce, hybrid.",
       },
       {
         period: "Mar 2026 — Present",
-        role: "Head of IT",
+        role: "IT Head",
         org: "STEMxFuture",
         detail: "IT infrastructure and digital transformation for a STEM non-profit. Istanbul, remote.",
       },
       {
         period: "Sep 2025 — Present",
-        role: "Co-Founder",
+        role: "Co-Founder & DevOps",
         org: "Pratech",
         detail:
-          "Designed and built the entire technical infrastructure for a digital receipt and expense management startup. Düzce, hybrid.",
+          "Designed and built the entire technical infrastructure across the software work. Düzce, hybrid.",
       },
       {
         period: "May 2025 — Present",
@@ -208,7 +210,7 @@ export const en: Content = {
     skills: [
       {
         title: "Languages",
-        items: ["Python", "TypeScript", "JavaScript", "C++", "C#", "SQL"],
+        items: ["Python", "React", "JavaScript", "C++", "C#", "SQL"],
       },
       {
         title: "Focus",
@@ -219,11 +221,12 @@ export const en: Content = {
           "Computer vision",
           "Reverse engineering",
           "Full stack",
+          "DevOps",
         ],
       },
       {
         title: "Tools",
-        items: ["FastAPI", "React", "PostgreSQL", "Docker", "Selenium", "OpenCV", "Git"],
+        items: ["FastAPI", "React", "PostgreSQL", "Docker", "Selenium", "OpenCV", "Git", "GitHub Actions", "AWS", "Kubernetes"],
       },
       {
         title: "Spoken",
@@ -231,9 +234,14 @@ export const en: Content = {
       },
     ],
   },
+  notFound: {
+    title: "Page not found",
+    body: "That page doesn't exist. The address may be mistyped, or the page may have moved.",
+    action: "Back to home",
+  },
   contact: {
     heading: "Contact",
-    lede: "Open to new projects. Email is the fastest route.",
+    lede: "Open to new projects. If you draw something on the site, print it and send it over.",
     emailLabel: "Email",
     email: "sedatoneer@gmail.com",
     channels: [

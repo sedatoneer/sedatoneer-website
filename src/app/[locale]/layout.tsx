@@ -1,12 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { fontVariables } from "../fonts";
 import { getContent } from "@/content";
 import { LOCALES, isLocale, type Locale } from "@/content/types";
-import { SITE_URL, AUTHOR } from "@/lib/site";
+import { SITE_URL, AUTHOR, alternatesFor } from "@/lib/site";
 import PaintWindow from "@/components/paint/PaintWindow";
+import JsonLd from "@/components/JsonLd";
 import "../globals.css";
+
+export const viewport: Viewport = {
+  themeColor: "#000080",
+  colorScheme: "light",
+};
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -28,10 +34,12 @@ export async function generateMetadata({
     description: meta.description,
     authors: [{ name: AUTHOR, url: SITE_URL }],
     creator: AUTHOR,
-    alternates: {
-      canonical: `/${locale}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `/${l}`])),
-    },
+    alternates: alternatesFor(locale),
+    applicationName: AUTHOR,
+    keywords:
+      locale === "tr"
+        ? ["Sedat Öner", "backend geliştirici", "otomasyon", "web scraping", "FastAPI", "Python", "Düzce"]
+        : ["Sedat Öner", "backend developer", "automation", "web scraping", "FastAPI", "Python", "Türkiye"],
     openGraph: {
       type: "website",
       siteName: AUTHOR,
@@ -70,6 +78,42 @@ export default async function LocaleLayout({
         >
           {content.nav.skip}
         </a>
+
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Person",
+                "@id": `${SITE_URL}/#sedat`,
+                name: AUTHOR,
+                url: `${SITE_URL}/${locale}`,
+                jobTitle: content.meta.tagline,
+                description: content.meta.description,
+                email: `mailto:${content.contact.email}`,
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "İstanbul",
+                  addressCountry: "TR",
+                },
+                alumniOf: {
+                  "@type": "CollegeOrUniversity",
+                  name: "Düzce Üniversitesi",
+                },
+                knowsAbout: content.home.doing,
+                sameAs: content.contact.channels.map((channel) => channel.href),
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_URL}/#site`,
+                url: `${SITE_URL}/${locale}`,
+                name: AUTHOR,
+                inLanguage: locale,
+                publisher: { "@id": `${SITE_URL}/#sedat` },
+              },
+            ],
+          }}
+        />
 
         <PaintWindow locale={locale as Locale} content={content}>
           {children}

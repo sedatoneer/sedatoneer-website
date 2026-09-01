@@ -75,6 +75,7 @@ export const tr: Content = {
     taskbar: { start: "Başlat" },
   },
   home: {
+    doodleAlt: "Fırçayla çizilmiş, elle çizilmiş gibi duran bir gülen yüz",
     headline: "Merhaba, ben Sedat.",
     lede: "Düzce Üniversitesi'nde bilgisayar mühendisliği okuyorum. Pratech girişiminin kurucu ortağıyım, Qupsoft'ta full stack geliştiriyorum.",
     doingLabel: "Yaptığım işler",
@@ -98,7 +99,7 @@ export const tr: Content = {
       pratech: {
         domain: "Kurucu ortak · Üretim",
         summary:
-          "Dijital makbuz ve gider yönetimi girişimi. Backend'i, sunucu altyapısını, kurumsal siteyi ve kullanıcı panelini sıfırdan kurdum.",
+          "Yazılım süreçlerinde programların Backend'ini, sunucu altyapısını, kurumsal siteyi ve kullanıcı panelini sıfırdan kurdum.",
       },
       "nac-system": {
         domain: "Ağ güvenliği",
@@ -123,17 +124,17 @@ export const tr: Content = {
       equaliter: {
         domain: "Görüntü işleme",
         summary:
-          "El hareketleriyle temassız ses ve medya kontrolü. MediaPipe el landmark'larını çıkarır, OpenCV kareleri işler, jest sistem ses seviyesine bağlanır.",
+          "El hareketleriyle temassız ses ve medya kontrolü. MediaPipe el landmark'larını çıkarıyor, OpenCV kareleri işliyor, jest sistem ses seviyesine bağlanıyor.",
       },
       whatscontrol: {
         domain: "Otomasyon",
         summary:
-          "Selenium ile WhatsApp Web'i dinler, gelen mesajları komut olarak ayrıştırır ve ADB üzerinden Mi Box'ı sürer. Uzaktan kumandayı kaybettiğim için yazdım.",
+          "Selenium ile WhatsApp Web'i dinler, gelen mesajları komut olarak ayrıştırır ve ADB üzerinden Mi Box'ı sürer. Uzaktan kumandada sıkıntı yaşadığım ve sıkıldığım için yazdım. Herhangi bir Akıllı TV'ye kolayca entegre olabilir.",
       },
       flexfarm: {
         domain: "Eğitim · Oyunlaştırma",
         summary:
-          "CSS Flexbox'ı oynayarak öğreten interaktif web oyunu. 20 bölüm, hikâye modu ve canlı kod editörü.",
+          "CSS Flexbox'ı oynayarak öğreten interaktif web oyunu. 20 bölümü var, hikâye modu ve canlı kod editörü mevcut.",
       },
       stemxfuture: {
         domain: "Web · STK",
@@ -143,7 +144,7 @@ export const tr: Content = {
       "data-bots": {
         domain: "Veri mühendisliği",
         summary:
-          "EKAP gibi ihale platformlarından binlerce satırı çeken ve işleyen kazıma botları. Gece çalışır, sabah temiz veri bırakır. Kaynak kapalı.",
+          "EKAP gibi ihale platformlarından binlerce satırı çeken ve işleyen kazıma botları. Gece çalışır, sabah temiz veri bırakır. Tabii isteğe bağlı manuel kullanımı mevcut. Kaynak kapalı.",
       },
     },
   },
@@ -153,6 +154,7 @@ export const tr: Content = {
     private: "kaynağı kapalı",
   },
   about: {
+    doodleAlt: "Fırçayla çizilmiş, el sallayan bir çöp adam",
     heading: "Hakkımda",
     lede: "Karmaşıklığı, bakılmadan çalışan altyapıya çeviriyorum. En sevdiğim geri bildirim, bir şeyin aylardır sorunsuz döndüğünü fark etmemiş olmak.",
     timelineHeading: "Deneyim",
@@ -161,24 +163,24 @@ export const tr: Content = {
     timeline: [
       {
         period: "Mar 2026 — Günümüz",
-        role: "Full Stack Developer",
+        role: "Full Stack Developer & DevOps Engineer",
         org: "Qupsoft",
         detail:
-          "B2B ve B2C dijital fiş platformunun tam yığın geliştirmesi. React, FastAPI ve PostgreSQL üzerinde ölçeklenebilir mimari. Düzce, hibrit.",
+          "B2B ve B2C dijital fiş ve sadakat sistemi platformunun tam yığın geliştirmesi. React, FastAPI ve PostgreSQL üzerinde ölçeklenebilir mimari. Düzce, hibrit.",
       },
       {
         period: "Mar 2026 — Günümüz",
-        role: "IT Departmanı Başkanı",
+        role: "IT Head",
         org: "STEMxFuture",
         detail:
           "STEM sivil toplum kuruluşunun IT altyapısı ve dijital dönüşüm süreçleri. İstanbul, uzaktan.",
       },
       {
         period: "Eyl 2025 — Günümüz",
-        role: "Kurucu Ortak",
+        role: "Kurucu Ortak & DevOps",
         org: "Pratech",
         detail:
-          "Dijital makbuz ve gider yönetimi girişiminin tüm teknik altyapısının tasarımı ve geliştirilmesi. Düzce, hibrit.",
+          "Yazılım süreçlerinde tüm teknik altyapısının tasarımı ve geliştirilmesi. Düzce, hibrit.",
       },
       {
         period: "May 2025 — Günümüz",
@@ -209,7 +211,7 @@ export const tr: Content = {
     skills: [
       {
         title: "Diller",
-        items: ["Python", "TypeScript", "JavaScript", "C++", "C#", "SQL"],
+        items: ["Python", "React", "JavaScript", "C++", "C#", "SQL"],
       },
       {
         title: "Uzmanlık",
@@ -220,11 +222,12 @@ export const tr: Content = {
           "Görüntü işleme",
           "Tersine mühendislik",
           "Full stack",
+          "DevOps",
         ],
       },
       {
         title: "Araçlar",
-        items: ["FastAPI", "React", "PostgreSQL", "Docker", "Selenium", "OpenCV", "Git"],
+        items: ["FastAPI", "React", "PostgreSQL", "Docker", "Selenium", "OpenCV", "Git", "GitHub Actions", "AWS", "Kubernetes"],
       },
       {
         title: "Konuştuğum diller",
@@ -232,9 +235,14 @@ export const tr: Content = {
       },
     ],
   },
+  notFound: {
+    title: "Sayfa bulunamadı",
+    body: "Aradığın sayfa yok. Adres yanlış yazılmış olabilir ya da sayfa taşınmış olabilir.",
+    action: "Ana sayfaya dön",
+  },
   contact: {
     heading: "İletişim",
-    lede: "Yeni projelere açığım. En hızlı yol e-posta.",
+    lede: "Yeni projelere açığım. Sitede çizim yaparsan yazdırıp at mutlaka.",
     emailLabel: "E-posta",
     email: "sedatoneer@gmail.com",
     channels: [
