@@ -1,0 +1,259 @@
+import type { Content } from "./types";
+
+export const tr: Content = {
+  meta: {
+    title: "Sedat Öner — Backend ve Otomasyon Mühendisi",
+    description:
+      "Bilgisayar mühendisliği öğrencisi, Pratech kurucu ortağı, Qupsoft'ta full stack geliştirici. RADIUS policy engine'leri, ağ analiz araçları, kendini onaran test koşucuları ve kazıma botları.",
+    tagline: "Kimse bakmazken çalışan sistemler",
+  },
+  nav: {
+    home: "Ana Sayfa",
+    projects: "Projeler",
+    about: "Hakkımda",
+    contact: "İletişim",
+    skip: "İçeriğe geç",
+  },
+  window: {
+    menus: {
+      file: {
+        label: "Dosya",
+        newDrawing: "Yeni",
+        savePng: "Çizimi PNG kaydet",
+        print: "Yazdır...",
+        close: "Çıkış",
+      },
+      edit: {
+        label: "Düzen",
+        undo: "Geri al",
+        clear: "Çizimi temizle",
+        copyEmail: "E-postamı kopyala",
+      },
+      view: {
+        label: "Görünüm",
+        toolbox: "Araç kutusu",
+        colorbox: "Renk kutusu",
+        maximize: "Tam ekran",
+      },
+      help: { label: "Yardım", about: "Hakkında" },
+    },
+    tools: {
+      pages: "Sayfalar",
+      draw: "Çizim",
+      brush: "Fırça",
+      eraser: "Silgi",
+      size: "Kalınlık",
+    },
+    controls: {
+      minimize: "Simge durumuna küçült",
+      maximize: "Ekranı kapla",
+      restore: "Önceki boyut",
+      close: "Kapat",
+    },
+    dialog: {
+      closeTitle: "Paint",
+      closeBody: "Çizimdeki değişiklikler kaydedilmedi. Kaydetmek ister misin?",
+      save: "Kaydet",
+      dontSave: "Kaydetme",
+      cancel: "İptal",
+      ok: "Tamam",
+      aboutTitle: "sedatoneer.com hakkında",
+      aboutBody:
+        "Bu site bir Paint penceresi. Alttaki paletten renk seç, fırçayı al ve sayfanın üstüne çiz. Çizdiğini Dosya menüsünden PNG olarak indirebilirsin.",
+      aboutCredit: "Sedat Öner · Backend ve otomasyon mühendisi",
+    },
+    status: {
+      hint: "Renk seçmek için palete tıkla.",
+      picked: "Renk seçildi:",
+      copied: "E-posta panoya kopyalandı.",
+      cleared: "Çizim temizlendi.",
+      saved: "Çizim PNG olarak indirildi.",
+      undone: "Son fırça darbesi geri alındı.",
+      nothingToUndo: "Geri alınacak bir şey yok.",
+      drawing: "Sayfanın üstüne çizebilirsin. Ctrl+Z geri alır.",
+    },
+    taskbar: { start: "Başlat" },
+  },
+  home: {
+    doodleAlt: "Fırçayla çizilmiş, elle çizilmiş gibi duran bir gülen yüz",
+    headline: "Merhaba, ben Sedat.",
+    lede: "Düzce Üniversitesi'nde bilgisayar mühendisliği okuyorum. Pratech girişiminin kurucu ortağıyım, Qupsoft'ta full stack geliştiriyorum.",
+    doingLabel: "Yaptığım işler",
+    doing: ["Backend", "Otomasyon", "Tersine mühendislik", "Görüntü işleme", "Web"],
+    toProjects: "Projelerim",
+    toContact: "Bana yaz",
+  },
+  projects: {
+    heading: "Projeler",
+    lede: "Yaptığım işler. Kaynağı açık olanların koduna, olmayanların canlı haline bakabilirsin.",
+    source: "Kaynak",
+    demo: "Canlı",
+    noSource: "Kapalı kaynak",
+    howItWorks: "Nasıl çalışıyor",
+    copy: {
+      qupsoft: {
+        domain: "Full stack · DevOps · Üretim",
+        summary:
+          "B2B ve B2C dijital fiş ve sadakat sistemi platformu. React arayüzü, FastAPI servisleri ve PostgreSQL şeması üzerinde çalışıyorum; çok tenantlı yapı ve rol tabanlı erişim var.",
+      },
+      pratech: {
+        domain: "Kurucu ortak · Üretim",
+        summary:
+          "Yazılım süreçlerinde programların Backend'ini, sunucu altyapısını, kurumsal siteyi ve kullanıcı panelini sıfırdan kurdum.",
+      },
+      "nac-system": {
+        domain: "Ağ güvenliği",
+        summary:
+          "RADIUS (RFC 2865/2866) üzerine kurulu AAA mimarisi. FreeRADIUS kimlik doğrular, FastAPI policy engine kimin hangi VLAN'a düşeceğine karar verir, Redis oturumları tutar. 35 birim testi var. S3M Security staj değerlendirmesi için yazıldı. Başarılı bulundu.",
+      },
+      "nac-gap-analyzer": {
+        domain: "Güvenlik analizi",
+        summary:
+          "Yerel ağı tarar, cihazların parmak izini çıkarır ve bir NAC sisteminin ne uygulayacağını hiçbir altyapı kurmadan simüle eder. D3.js force graph ile topoloji görselleştirmesi ve PDF rapor üretimi mevcut.",
+      },
+      autoheal: {
+        domain: "Geliştirici araçları",
+        summary:
+          "Kırılan Playwright testlerini bir LLM ile onarır. DOM anlık görüntüsünü alır, hata bağlamını toplar, ts-morph ile AST üzerinde yama uygular ve testi yeniden koşarak doğrular. OpenAI, Anthropic ve Ollama ile çalışır.",
+      },
+      cleandev: {
+        domain: "Masaüstü uygulaması",
+        summary:
+          "Cleantr'ın cross-platform fork'u. Terk edilmiş git depolarını on ekosistemde (Node, Python, Rust, Go, Java…) bulan bir Dead Project Detector ve global paket önbelleği tarayıcısı ekliyor. Windows, macOS, Linux...",
+      },
+      equaliter: {
+        domain: "Görüntü işleme",
+        summary:
+          "El hareketleriyle temassız ses ve medya kontrolü. MediaPipe el landmark'larını çıkarıyor, OpenCV kareleri işliyor, jest sistem ses seviyesine bağlanıyor.",
+      },
+      whatscontrol: {
+        domain: "Otomasyon",
+        summary:
+          "Selenium ile WhatsApp Web'i dinler, gelen mesajları komut olarak ayrıştırır ve ADB üzerinden Mi Box'ı sürer. Uzaktan kumandada sıkıntı yaşadığım ve sıkıldığım için yazdım. Herhangi bir Akıllı TV'ye kolayca entegre olabilir.",
+      },
+      flexfarm: {
+        domain: "Eğitim · Oyunlaştırma",
+        summary:
+          "CSS Flexbox'ı oynayarak öğreten interaktif web oyunu. 20 bölümü var, hikâye modu ve canlı kod editörü mevcut.",
+      },
+      stemxfuture: {
+        domain: "Web · STK",
+        summary:
+          "STEMxFuture STEM sivil toplum kuruluşunun kurumsal sitesi. Framework kullanmadan, sıfırdan yazıldı. Kuruluşun IT departmanını da yönetiyorum.",
+      },
+      "data-bots": {
+        domain: "Veri mühendisliği",
+        summary:
+          "EKAP gibi ihale platformlarından binlerce satırı çeken ve işleyen kazıma botları. Gece çalışır, sabah temiz veri bırakır. Tabii isteğe bağlı manuel kullanımı mevcut. Kaynak kapalı.",
+      },
+    },
+  },
+  status: {
+    running: "hâlâ üzerinde çalışıyorum",
+    shipped: "bitti",
+    private: "kaynağı kapalı",
+  },
+  about: {
+    doodleAlt: "Fırçayla çizilmiş, el sallayan bir çöp adam",
+    heading: "Hakkımda",
+    lede: "Karmaşıklığı, bakılmadan çalışan altyapıya çeviriyorum. En sevdiğim geri bildirim, bir şeyin aylardır sorunsuz döndüğünü fark etmemiş olmak.",
+    timelineHeading: "Deneyim",
+    presentWord: "Günümüz",
+    skillsHeading: "Yetkinlikler",
+    timeline: [
+      {
+        period: "Mar 2026 — Günümüz",
+        role: "Full Stack Developer & DevOps Engineer",
+        org: "Qupsoft",
+        detail:
+          "B2B ve B2C dijital fiş ve sadakat sistemi platformunun tam yığın geliştirmesi. React, FastAPI ve PostgreSQL üzerinde ölçeklenebilir mimari. Düzce, hibrit.",
+      },
+      {
+        period: "Mar 2026 — Günümüz",
+        role: "IT Head",
+        org: "STEMxFuture",
+        detail:
+          "STEM sivil toplum kuruluşunun IT altyapısı ve dijital dönüşüm süreçleri. İstanbul, uzaktan.",
+      },
+      {
+        period: "Eyl 2025 — Günümüz",
+        role: "Kurucu Ortak & DevOps",
+        org: "Pratech",
+        detail:
+          "Yazılım süreçlerinde tüm teknik altyapısının tasarımı ve geliştirilmesi. Düzce, hibrit.",
+      },
+      {
+        period: "May 2025 — Günümüz",
+        role: "Proje ve Ar-Ge Departmanı Başkanı",
+        org: "Düzce Üni. Kalite Topluluğu",
+        detail: "Teknik projelerin yönetimi, araştırma süreçlerinin yürütülmesi ve ekip koordinasyonu.",
+      },
+      {
+        period: "Şub 2025 — May 2025",
+        role: "Proje ve Ar-Ge Departmanı Üyesi",
+        org: "Düzce Üni. Kalite Topluluğu",
+        detail: "Araştırma projelerine katkı ve geliştirme süreçlerinde aktif rol.",
+      },
+      {
+        period: "2023 — 2028",
+        role: "Bilgisayar Mühendisliği",
+        org: "Düzce Üniversitesi",
+        detail: "Lisans.",
+      },
+      {
+        period: "2022 — Günümüz",
+        role: "Freelance Geliştirici",
+        org: "Bağımsız",
+        detail:
+          "Python ve Selenium ile otomasyon ve veri kazıma; çeşitli web teknolojileriyle kurumsal projeler.",
+      },
+    ],
+    skills: [
+      {
+        title: "Diller",
+        items: ["Python", "React", "JavaScript", "C++", "C#", "SQL"],
+      },
+      {
+        title: "Uzmanlık",
+        items: [
+          "Backend geliştirme",
+          "Otomasyon",
+          "Web scraping",
+          "Görüntü işleme",
+          "Tersine mühendislik",
+          "Full stack",
+          "DevOps",
+        ],
+      },
+      {
+        title: "Araçlar",
+        items: ["FastAPI", "React", "PostgreSQL", "Docker", "Selenium", "OpenCV", "Git", "GitHub Actions", "AWS", "Kubernetes"],
+      },
+      {
+        title: "Konuştuğum diller",
+        items: ["Türkçe — anadil", "İngilizce — teknik"],
+      },
+    ],
+  },
+  notFound: {
+    title: "Sayfa bulunamadı",
+    body: "Aradığın sayfa yok. Adres yanlış yazılmış olabilir ya da sayfa taşınmış olabilir.",
+    action: "Ana sayfaya dön",
+  },
+  contact: {
+    heading: "İletişim",
+    lede: "Yeni projelere açığım. Sitede çizim yaparsan yazdırıp at mutlaka.",
+    emailLabel: "E-posta",
+    email: "sedatoneer@gmail.com",
+    channels: [
+      { label: "GitHub", value: "github.com/sedatoneer", href: "https://github.com/sedatoneer" },
+      {
+        label: "LinkedIn",
+        value: "linkedin.com/in/sedatoneer",
+        href: "https://linkedin.com/in/sedatoneer",
+      },
+    ],
+    locationLabel: "Konum",
+    location: "İstanbul, Türkiye",
+  },
+};
