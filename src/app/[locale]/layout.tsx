@@ -88,7 +88,7 @@ export default async function LocaleLayout({
                 "@id": `${SITE_URL}/#sedat`,
                 name: AUTHOR,
                 url: `${SITE_URL}/${locale}`,
-                jobTitle: content.meta.tagline,
+                jobTitle: content.meta.role,
                 description: content.meta.description,
                 email: `mailto:${content.contact.email}`,
                 address: {

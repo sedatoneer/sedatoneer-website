@@ -5,7 +5,8 @@ export const en: Content = {
     title: "Sedat Öner — Backend & Automation Engineer",
     description:
       "Computer engineering student, Pratech co-founder, full stack developer at Qupsoft. RADIUS policy engines, network analysis tools, self-healing test runners, and scrapers.",
-    tagline: "Systems that run when nobody's watching",
+    tagline: "Computer Engineering",
+    role: "Computer engineer",
   },
   nav: {
     home: "Home",
