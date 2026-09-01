@@ -64,10 +64,36 @@ export interface Content {
     skip: string;
   };
   window: {
-    /** Menu bar labels. Part of the frame, not navigation. */
-    menu: string[];
-    colorHint: string;
-    colorPicked: string;
+    menus: {
+      file: { label: string; newDrawing: string; savePng: string; print: string; close: string };
+      edit: { label: string; undo: string; clear: string; copyEmail: string };
+      view: { label: string; toolbox: string; colorbox: string; maximize: string };
+      help: { label: string; about: string };
+    };
+    tools: { pages: string; draw: string; brush: string; eraser: string; size: string };
+    controls: { minimize: string; maximize: string; restore: string; close: string };
+    dialog: {
+      closeTitle: string;
+      closeBody: string;
+      save: string;
+      dontSave: string;
+      cancel: string;
+      ok: string;
+      aboutTitle: string;
+      aboutBody: string;
+      aboutCredit: string;
+    };
+    status: {
+      hint: string;
+      picked: string;
+      copied: string;
+      cleared: string;
+      saved: string;
+      undone: string;
+      nothingToUndo: string;
+      drawing: string;
+    };
+    taskbar: { start: string };
   };
   home: {
     headline: string;

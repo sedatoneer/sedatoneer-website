@@ -172,6 +172,35 @@ body {
   border-color: #ffffff #000000 #000000 #ffffff;
 }
 
+/* ── Print ──────────────────────────────────────────────────────
+   File > Print gives you the page, not the window chrome.
+   ───────────────────────────────────────────────────────────── */
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .print-chrome {
+    display: none !important;
+  }
+
+  .print-page {
+    display: block !important;
+    height: auto !important;
+    max-width: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .canvas a {
+    color: #000000;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

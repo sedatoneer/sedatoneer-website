@@ -15,30 +15,85 @@ export const tr: Content = {
     skip: "İçeriğe geç",
   },
   window: {
-    menu: ["Dosya", "Düzen", "Görünüm", "Yardım"],
-    colorHint: "Renk seçmek için palete tıkla.",
-    colorPicked: "Renk seçildi:",
+    menus: {
+      file: {
+        label: "Dosya",
+        newDrawing: "Yeni",
+        savePng: "Çizimi PNG kaydet",
+        print: "Yazdır...",
+        close: "Çıkış",
+      },
+      edit: {
+        label: "Düzen",
+        undo: "Geri al",
+        clear: "Çizimi temizle",
+        copyEmail: "E-postamı kopyala",
+      },
+      view: {
+        label: "Görünüm",
+        toolbox: "Araç kutusu",
+        colorbox: "Renk kutusu",
+        maximize: "Tam ekran",
+      },
+      help: { label: "Yardım", about: "Hakkında" },
+    },
+    tools: {
+      pages: "Sayfalar",
+      draw: "Çizim",
+      brush: "Fırça",
+      eraser: "Silgi",
+      size: "Kalınlık",
+    },
+    controls: {
+      minimize: "Simge durumuna küçült",
+      maximize: "Ekranı kapla",
+      restore: "Önceki boyut",
+      close: "Kapat",
+    },
+    dialog: {
+      closeTitle: "Paint",
+      closeBody: "Çizimdeki değişiklikler kaydedilmedi. Kaydetmek ister misin?",
+      save: "Kaydet",
+      dontSave: "Kaydetme",
+      cancel: "İptal",
+      ok: "Tamam",
+      aboutTitle: "sedatoneer.com hakkında",
+      aboutBody:
+        "Bu site bir Paint penceresi. Alttaki paletten renk seç, fırçayı al ve sayfanın üstüne çiz. Çizdiğini Dosya menüsünden PNG olarak indirebilirsin.",
+      aboutCredit: "Sedat Öner · Backend ve otomasyon mühendisi",
+    },
+    status: {
+      hint: "Renk seçmek için palete tıkla.",
+      picked: "Renk seçildi:",
+      copied: "E-posta panoya kopyalandı.",
+      cleared: "Çizim temizlendi.",
+      saved: "Çizim PNG olarak indirildi.",
+      undone: "Son fırça darbesi geri alındı.",
+      nothingToUndo: "Geri alınacak bir şey yok.",
+      drawing: "Sayfanın üstüne çizebilirsin. Ctrl+Z geri alır.",
+    },
+    taskbar: { start: "Başlat" },
   },
   home: {
     headline: "Merhaba, ben Sedat.",
-    lede: "Düzce Üniversitesi'nde bilgisayar mühendisliği okuyorum. Pratech'in kurucu ortağıyım, Qupsoft'ta full stack geliştiriyorum. İşimin çoğu arka planda duruyor: fiş işleyen API'ler, ağ erişimini denetleyen policy engine'ler, gece çalışan kazıma botları.",
+    lede: "Düzce Üniversitesi'nde bilgisayar mühendisliği okuyorum. Pratech girişiminin kurucu ortağıyım, Qupsoft'ta full stack geliştiriyorum.",
     doingLabel: "Yaptığım işler",
-    doing: ["Backend", "Otomasyon", "Tersine mühendislik", "Görüntü işleme"],
-    toProjects: "Projelere bak",
+    doing: ["Backend", "Otomasyon", "Tersine mühendislik", "Görüntü işleme", "Web"],
+    toProjects: "Projelerim",
     toContact: "Bana yaz",
   },
   projects: {
     heading: "Projeler",
-    lede: "Yaptığım işler. Kaynağı açık olanların koduna, olmayanların ne yaptığına bakabilirsin.",
+    lede: "Yaptığım işler. Kaynağı açık olanların koduna, olmayanların canlı haline bakabilirsin.",
     source: "Kaynak",
     demo: "Canlı",
     noSource: "Kapalı kaynak",
     howItWorks: "Nasıl çalışıyor",
     copy: {
       qupsoft: {
-        domain: "Full stack · Üretim",
+        domain: "Full stack · DevOps · Üretim",
         summary:
-          "B2B ve B2C dijital fiş ve gider yönetimi platformu. React arayüzü, FastAPI servisleri ve PostgreSQL şeması üzerinde çalışıyorum; çok kiracılı yapı ve rol tabanlı erişim dahil.",
+          "B2B ve B2C dijital fiş ve sadakat sistemi platformu. React arayüzü, FastAPI servisleri ve PostgreSQL şeması üzerinde çalışıyorum; çok tenantlı yapı ve rol tabanlı erişim var.",
       },
       pratech: {
         domain: "Kurucu ortak · Üretim",
@@ -48,12 +103,12 @@ export const tr: Content = {
       "nac-system": {
         domain: "Ağ güvenliği",
         summary:
-          "RADIUS (RFC 2865/2866) üzerine kurulu AAA mimarisi. FreeRADIUS kimlik doğrular, FastAPI policy engine kimin hangi VLAN'a düşeceğine karar verir, Redis oturumları tutar. 35 birim testi. S3M Security staj değerlendirmesi için yazıldı.",
+          "RADIUS (RFC 2865/2866) üzerine kurulu AAA mimarisi. FreeRADIUS kimlik doğrular, FastAPI policy engine kimin hangi VLAN'a düşeceğine karar verir, Redis oturumları tutar. 35 birim testi var. S3M Security staj değerlendirmesi için yazıldı. Başarılı bulundu.",
       },
       "nac-gap-analyzer": {
         domain: "Güvenlik analizi",
         summary:
-          "Yerel ağı tarar, cihazların parmak izini çıkarır ve bir NAC sisteminin ne uygulayacağını hiçbir altyapı kurmadan simüle eder. D3.js force graph ile topoloji görselleştirmesi ve PDF rapor üretimi.",
+          "Yerel ağı tarar, cihazların parmak izini çıkarır ve bir NAC sisteminin ne uygulayacağını hiçbir altyapı kurmadan simüle eder. D3.js force graph ile topoloji görselleştirmesi ve PDF rapor üretimi mevcut.",
       },
       autoheal: {
         domain: "Geliştirici araçları",
@@ -63,7 +118,7 @@ export const tr: Content = {
       cleandev: {
         domain: "Masaüstü uygulaması",
         summary:
-          "Cleantr'ın cross-platform fork'u. Terk edilmiş git depolarını on ekosistemde (Node, Python, Rust, Go, Java…) bulan bir Dead Project Detector ve global paket önbelleği tarayıcısı ekliyor. Windows, macOS, Linux.",
+          "Cleantr'ın cross-platform fork'u. Terk edilmiş git depolarını on ekosistemde (Node, Python, Rust, Go, Java…) bulan bir Dead Project Detector ve global paket önbelleği tarayıcısı ekliyor. Windows, macOS, Linux...",
       },
       equaliter: {
         domain: "Görüntü işleme",

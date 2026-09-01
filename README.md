@@ -2,9 +2,9 @@
 
 Personal site for Sedat Öner — backend and automation engineer.
 
-The whole site is one MS Paint window sitting on the Windows 95 desktop. The
-tool palette on the left is the navigation, and the colour palette at the bottom
-actually works: pick a colour and the links and diagrams follow it.
+The whole site is one MS Paint window sitting on the Windows 95 desktop, and it
+actually works like one: the menus open, the window buttons do what they say,
+and you can draw on the page with the brush.
 
 ## Run
 
@@ -49,6 +49,26 @@ project gets one only when there's a real mechanism worth drawing; the rest just
 list their stack. Register a new one in `SchematicId` (`src/content/types.ts`)
 and the map at the bottom of `src/components/schematics/index.tsx`.
 
+## What actually works
+
+| Thing | Behaviour |
+| --- | --- |
+| Tool box | Top group navigates between pages; bottom group is brush + eraser |
+| Colour palette | Sets the accent for links and diagram highlights, and the brush colour |
+| Brush / eraser | Draws on top of the page. Ctrl+Z undoes a stroke |
+| File → Save as PNG | Flattens the drawing onto white and downloads it |
+| File → Print | Prints the page content without the window chrome |
+| Edit → Copy my email | Writes the address to the clipboard |
+| View | Toggles the tool box, the colour box, and full screen |
+| Help → About | Windows 95 about box |
+| Window buttons | Minimise to the taskbar, maximise, close (asks to save the drawing) |
+| Taskbar | Start menu is a second way into the pages; the clock is live |
+| Status bar | Cursor coordinates while drawing, otherwise the last action |
+
+A drawing belongs to the page it was drawn on, so it is stored against that
+path and reads as empty once you navigate away. Nothing is persisted except the
+picked colour.
+
 ## Notes
 
 - **The colour palette.** `src/lib/colour.ts` stores the picked colour in
@@ -63,8 +83,14 @@ and the map at the bottom of `src/components/schematics/index.tsx`.
   hreflang, and canonical URLs are all correct and an English link is shareable.
 - Set `NEXT_PUBLIC_SITE_URL` in the deploy environment. It drives metadata,
   Open Graph, `sitemap.xml`, and `robots.txt` (default: `https://sedatoneer.com`).
-- The window fills the viewport and only the canvas scrolls, so the tool palette
-  and colour palette stay reachable on long pages.
+- The window fills the viewport and only the canvas scrolls, so the tool box and
+  colour box stay reachable on long pages. The taskbar is 30px, reserved with
+  padding on the window wrapper.
+- Drawing is stored as strokes (points + colour + width), never as pixels, so
+  undo and resizing are both just a redraw, and the PNG export can flatten onto
+  white.
+- Per-page state is derived during render, not reset in an effect — see `board`
+  in `PaintWindow.tsx`.
 
 ## Stack
 
